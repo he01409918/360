@@ -1,22 +1,17 @@
-﻿<krpano version="1.20.11" title="360Demo | Tang">
+﻿<krpano version="1.19" title="360Demo|Tang">
 
 	<include url="skin/vtourskin.xml" />
-
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="true"
 	               maps_type="google"
 	               maps_bing_api_key=""
 	               maps_google_api_key=""
 	               maps_zoombuttons="false"
-	               maps_loadonfirstuse="true"
 	               gyro="true"
-	               gyro_keeplookingdirection="false"
 	               webvr="true"
-	               webvr_keeplookingdirection="true"
+	               webvr_gyro_keeplookingdirection="false"
 	               webvr_prev_next_hotspots="true"
-	               autotour="false"
 	               littleplanetintro="false"
-	               followmousecontrol="false"
 	               title="true"
 	               thumbs="true"
 	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
@@ -36,7 +31,7 @@
 	               loadscene_blend="OPENBLEND(1.0, -0.5, 0.3, 0.8, linear)"
 	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
 	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
-	               loadingtext="載入中	"
+	               loadingtext="載入中..."
 	               layout_width="100%"
 	               layout_maxwidth="814"
 	               controlbar_width="-24"
@@ -70,36 +65,58 @@
 	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
 
 
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+/>
+  />
+
+</action>
+
+
 	
 	<scene name="scene_01" title="DemoScene1" onstart="" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" heading="">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
 
-		<view hlookat="281.1" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="0.494" vlookat="0.197" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
 		<preview url="panos/01.tiles/preview.jpg" />
 
-		<image prealign="0|281.1|0">
-			<cube url="panos/01.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1152,2304" />
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="2304" tiledimageheight="2304">
+				<cube url="panos/01.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1152" tiledimageheight="1152">
+				<cube url="panos/01.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="640" tiledimageheight="640">
+				<cube url="panos/01.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
 		</image>
-		<hotspot name="spot1" style="skin_hotspotstyle" ath="-164.571" atv="-4.691" linkedscene="scene_02" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-5.525" atv="-0.833" linkedscene="scene_02" />
 
 	</scene>
 
 	<scene name="scene_02" title="DemoScene2" onstart="" thumburl="panos/02.tiles/thumb.jpg" lat="" lng="" heading="">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
 		<preview url="panos/02.tiles/preview.jpg" />
 
-		<image>
-			<cube url="panos/02.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2624" />
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="2624" tiledimageheight="2624">
+				<cube url="panos/02.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1280" tiledimageheight="1280">
+				<cube url="panos/02.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="640" tiledimageheight="640">
+				<cube url="panos/02.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
 		</image>
-		<hotspot name="spot1" style="skin_hotspotstyle" ath="64.661" atv="11.394" linkedscene="scene_01" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="65.489" atv="13.220" linkedscene="scene_01" />
 
 	</scene>
-
 
 </krpano>
